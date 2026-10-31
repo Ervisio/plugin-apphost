@@ -1,0 +1,10 @@
+{
+  "name": "ervisio-plugin-apphost",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node --check plugin/index.js",
+    "test": "python3 -B -m unittest discover -s tests -p 'test_*.py'",
+    "pack": "python3 -B pack.py"
+  }
+}
