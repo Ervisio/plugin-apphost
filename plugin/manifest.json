@@ -2,7 +2,7 @@
   "id": "apphost",
   "name": "AppHost",
   "description": "Host and manage persistent bots, APIs, workers and custom backend processes with systemd, resource statistics, logs, deployment and files.",
-  "author": "Ervisio team",
+  "author": "Ervisio Community",
   "version": "0.1.0",
   "minCore": "0.5.0",
   "platforms": [
