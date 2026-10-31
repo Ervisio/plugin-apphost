@@ -1,0 +1,113 @@
+{
+  "id": "apphost",
+  "name": "AppHost",
+  "description": "Host and manage persistent bots, APIs, workers and custom backend processes with systemd, resource statistics, logs, deployment and files.",
+  "author": "Ervisio",
+  "version": "0.1.0",
+  "minCore": "0.5.0",
+  "platforms": [
+    "linux"
+  ],
+  "entry": "index.js",
+  "icon": "server",
+  "color": "svc",
+  "capabilities": {
+    "http": [
+      {
+        "name": "apphost",
+        "socket": "/run/ervisio-apphost/control.sock",
+        "admin": true,
+        "headers": [
+          "Content-Type"
+        ],
+        "maxBody": 131072,
+        "timeoutSec": 60,
+        "rules": [
+          {
+            "methods": [
+              "GET"
+            ],
+            "path": "/v1/health"
+          },
+          {
+            "methods": [
+              "GET",
+              "POST"
+            ],
+            "path": "/v1/apps"
+          },
+          {
+            "methods": [
+              "GET",
+              "PATCH",
+              "DELETE"
+            ],
+            "path": "/v1/apps/[a-z][a-z0-9-]{2,47}"
+          },
+          {
+            "methods": [
+              "POST"
+            ],
+            "path": "/v1/apps/[a-z][a-z0-9-]{2,47}/(power|deploy|exec)"
+          },
+          {
+            "methods": [
+              "GET"
+            ],
+            "path": "/v1/apps/[a-z][a-z0-9-]{2,47}/(logs|env|files|file)"
+          },
+          {
+            "methods": [
+              "PUT"
+            ],
+            "path": "/v1/apps/[a-z][a-z0-9-]{2,47}/(env|file)"
+          },
+          {
+            "methods": [
+              "GET"
+            ],
+            "path": "/v1/jobs/[a-f0-9]{12}"
+          }
+        ]
+      }
+    ],
+    "sockets": [
+      "/run/ervisio-apphost/control.sock"
+    ],
+    "commands": [
+      {
+        "name": "terminal",
+        "description": "Open an interactive shell in one AppHost application as its unprivileged service user",
+        "admin": true,
+        "pty": true,
+        "argv": [
+          "/usr/bin/python3",
+          "/opt/ervisio-apphost/app_shell.py",
+          "{0}"
+        ],
+        "args": [
+          {
+            "pattern": "[a-z][a-z0-9-]{2,47}",
+            "maxLen": 48
+          }
+        ]
+      }
+    ]
+  },
+  "contributes": {
+    "pages": [
+      {
+        "id": "apphost",
+        "title": "AppHost",
+        "icon": "server"
+      }
+    ]
+  },
+  "visibleTo": {
+    "groups": [
+      "sudo",
+      "wheel",
+      "admin"
+    ]
+  }
+}
