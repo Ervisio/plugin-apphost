@@ -3,7 +3,7 @@
   "name": "AppHost",
   "description": "Host and manage persistent bots, APIs, workers and custom backend processes with systemd, resource statistics, logs, deployment and files.",
   "author": "Ervisio Community",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minCore": "0.5.0",
   "platforms": [
     "linux"
