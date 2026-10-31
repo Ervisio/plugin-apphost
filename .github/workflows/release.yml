@@ -1,0 +1,24 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version increment
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+      notes:
+        description: Release notes
+        type: string
+        required: false
+  push:
+    tags: ['v*.*.*']
+permissions:
+  contents: write
+jobs:
+  release:
+    uses: Ervisio/plugin-sdk/.github/workflows/plugin-release.yml@main
+    with:
+      bump: ${{ github.event_name == 'workflow_dispatch' && inputs.bump || '' }}
+      notes: ${{ inputs.notes }}
+    secrets: inherit
